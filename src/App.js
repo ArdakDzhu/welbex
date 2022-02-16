@@ -1,25 +1,33 @@
-import logo from './logo.svg';
+import Home from './Pages/Home';
+import ToDo from './Pages/ToDo/ToDo';
+import Navbar from './Components/Navbar';
 import './App.css';
+import {  Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 function App() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/todos')
+    .then(res => res.json())
+    .then(res => {
+      dispatch({type: 'ADD_TASK',payload: res })
+      dispatch({type: 'ADD_PAGES',payload: res.length / 5 })
+    })
+  },[])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+      
+      <Routes>
+        <Route path="/" exact element={<Home/>}/>
+        <Route path="/todo" element={<ToDo/>}/>
+      </Routes>
     </div>
   );
 }
-
 export default App;

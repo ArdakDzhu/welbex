@@ -1,0 +1,11 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    font-size: 40px;
+    font-family: 'Roboto', sans-serif;
+
+    a:first-child {
+        margin-right: 80px;
+    }
+}
